@@ -61,6 +61,8 @@ coverage.xml
 # Logs and temporary files
 *.log
 *.tmp
+tempCodeRunnerFile.py
+
 
 # VS Code-specific files
 .vscode/
