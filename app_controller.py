@@ -29,11 +29,11 @@ class MainWindow(QMainWindow):
             design_life = float(self.ui.life_input.text().strip())
 
             # Ensure the values are positive
-            if span_length <= 0 or width <= 0 or traffic_volume <= 0 or design_life <= 0:
-                raise ValueError("All inputs must be positive numbers.")
+            if ((not span_length) or (not width) or (not traffic_volume)) :
+                raise ValueError
 
         except ValueError:
-            QMessageBox.warning(self, "Input Error", "Make sure all details are entered.")
+            QMessageBox.warning(self, "Input Error", "Please check your Input.")
             return
 
         #fetching costs from database

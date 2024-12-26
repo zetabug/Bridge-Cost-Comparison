@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QVBoxLayout, QFileDialog
+from PyQt5.QtWidgets import QVBoxLayout, QFileDialog,QMessageBox
 import numpy as np
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
@@ -68,11 +68,21 @@ def create_plot(self , categories , steel_values, concrete_values ):
 
 
 def export_chart(self):
-            # Open a file dialog to select the save location
-            file_path, _ = QFileDialog.getSaveFileName(self, "Save Chart", "", "PNG Files (*.png);;JPEG Files (*.jpg);;All Files (*)")
+        layout = self.ui.frame_2.layout()
+    
+        try:    
+            if layout is None or layout.count() == 0:
+                print("No data available")
+                raise ValueError
+            else:
+                # Open a file dialog to select the save location
+                file_path, _ = QFileDialog.getSaveFileName(self, "Save Chart", "", "PNG Files (*.png);;JPEG Files (*.jpg);;All Files (*)")
 
-            if file_path:
-                # Save the chart using savefig
-                self.canvas.figure.savefig(file_path)
-                print(f"Chart saved to {file_path}")
-                
+                if file_path:
+                    # Save the chart using savefig
+                    self.canvas.figure.savefig(file_path)
+                    print(f"Chart saved to {file_path}")
+        
+        except ValueError:
+            QMessageBox.warning(self, "Input Error", "Please check your Input.")
+            return
