@@ -5,7 +5,6 @@ def init_db():
     # Connecting to the database
     conn = sqlite3.connect('sql.db')
     cursor = conn.cursor()
-    print('Database initialized.')
 
     # cursor.execute("DROP TABLE costTable")
 
@@ -39,12 +38,14 @@ def init_db():
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """, row)
         except sqlite3.IntegrityError:
-            print(f"Duplicate material found: {row[0]}")
+            return None
 
 
     # Verify data in the table
     cursor.execute("SELECT * FROM costTable")
     res = cursor.fetchall()
+    
+    print('Database initialized.')
     print("Database contents:", res)
 
     conn.commit()
