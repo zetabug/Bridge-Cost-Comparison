@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QAbstractItemView
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QAbstractItemView, QMessageBox
+from PyQt5 import QtCore
 from untitled import Ui_MainWindow
 
 import dialogs
@@ -13,8 +13,8 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.ui = Ui_MainWindow()
+ 
         self.ui.setupUi(self)
-        
 
         self.ui.calcCosts_btn.clicked.connect(self.displayAll)
         self.ui.updateDB_btn.clicked.connect(self.openUpdateDialog)

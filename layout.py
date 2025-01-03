@@ -17,12 +17,13 @@ from PyQt5.QtGui import QIntValidator
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1393, 579)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
 
+
+        
         # frame 1 - input form
         self.frame_1 = QtWidgets.QFrame(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
@@ -35,8 +36,13 @@ class Ui_MainWindow(object):
         self.frame_1.setFrameShape(QtWidgets.QFrame.Box)
         self.frame_1.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.frame_1.setObjectName("frame_1")
+        
+        self.frame_1_layout = QtWidgets.QVBoxLayout(self.frame_1)
+        self.frame_1_layout.setObjectName("frame_1_layout")
+        
+        
         self.formLayoutWidget = QtWidgets.QWidget(self.frame_1)
-        self.formLayoutWidget.setGeometry(QtCore.QRect(15, 30, 235, 361))
+        # self.formLayoutWidget.setGeometry(QtCore.QRect(15, 30, 235, 361))
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setLabelAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
@@ -115,17 +121,12 @@ class Ui_MainWindow(object):
         self.life_input.setMinimumSize(QtCore.QSize(0, 0))
         self.life_input.setObjectName("life_input")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.life_input)
-        self.updateDB_btn = QtWidgets.QPushButton(self.frame_1)
-        self.updateDB_btn.setGeometry(QtCore.QRect(30, 470, 211, 51))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.updateDB_btn.setFont(font)
-        self.updateDB_btn.setStyleSheet("color:#fff;\n"
-"background-color:rgb(0, 0, 0)")
-        self.updateDB_btn.setObjectName("updateDB_btn")
+        
+        # Add formLayoutWidget to the vertical layout
+        self.frame_1_layout.addWidget(self.formLayoutWidget)
+        
 
         self.calcCosts_btn = QtWidgets.QPushButton(self.frame_1)
-        self.calcCosts_btn.setGeometry(QtCore.QRect(30, 410, 211, 51))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.calcCosts_btn.setFont(font)
@@ -133,15 +134,19 @@ class Ui_MainWindow(object):
         self.calcCosts_btn.setStyleSheet("color:#fff;\n"
 "background-color:rgb(0, 0, 0)")
         self.calcCosts_btn.setObjectName("calcCosts_btn")
-        self.label = QtWidgets.QLabel(self.frame_1)
-        self.label.setGeometry(QtCore.QRect(10, 0, 61, 31))
+        
+        self.frame_1_layout.addWidget(self.calcCosts_btn)
+
+        self.updateDB_btn = QtWidgets.QPushButton(self.frame_1)
         font = QtGui.QFont()
-        font.setFamily("Calibri")
         font.setPointSize(12)
-        font.setBold(False)
-        font.setWeight(50)
-        self.label.setFont(font)
-        self.label.setObjectName("label")
+        self.updateDB_btn.setFont(font)
+        self.updateDB_btn.setStyleSheet("color:#fff;\n"
+"background-color:rgb(0, 0, 0)")
+        self.updateDB_btn.setObjectName("updateDB_btn")
+        
+        self.frame_1_layout.addWidget(self.updateDB_btn)
+        
         self.horizontalLayout.addWidget(self.frame_1)
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
@@ -166,7 +171,6 @@ class Ui_MainWindow(object):
         self.frame_3_layout = QtWidgets.QVBoxLayout(self.frame_3)
         self.frame_3_layout.setAlignment(QtCore.Qt.AlignCenter)
         self.frame_3_layout.addWidget(self.tableWidget)
-        self.frame_3_layout.setContentsMargins(15, 20, 15, 30)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(3)
         self.tableWidget.setRowCount(0)
@@ -193,7 +197,6 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(2, item)
-        # self.tableWidget.horizontalHeader().setDefaultSectionSize(120)
         self.tableWidget.verticalHeader().setCascadingSectionResizes(False)
 
         #adding space
@@ -227,14 +230,13 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("Bridge Cost Comparison", "Bridge Cost Comparison"))
         self.span_label.setText(_translate("MainWindow", "Span Length (m) :"))
         self.width_label.setText(_translate("MainWindow", "Width (m) :"))
         self.traffic_label.setText(_translate("MainWindow", "<html><head/><body><p><span >Traffic Volume :</span></p><p><span >(Average Daily Traffic </span></p><p><span>in vehicles/day)</span></p></body></html>"))
         self.life_label.setText(_translate("MainWindow", "Design Life (years) :"))
         self.updateDB_btn.setText(_translate("MainWindow", "Update Database"))
         self.calcCosts_btn.setText(_translate("MainWindow", "Calculate Costs"))
-        self.label.setText(_translate("MainWindow", "Input "))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Cost Component"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -245,11 +247,11 @@ class Ui_MainWindow(object):
 
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     import sys
+#     app = QtWidgets.QApplication(sys.argv)
+#     MainWindow = QtWidgets.QMainWindow()
+#     ui = Ui_MainWindow()
+#     ui.setupUi(MainWindow)
+#     MainWindow.showMaximized()
+#     sys.exit(app.exec_())
