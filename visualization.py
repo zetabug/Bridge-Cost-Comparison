@@ -8,7 +8,7 @@ from PyQt5 import QtWidgets
 
 
 def create_plot(self , categories , steel_values, concrete_values ):
-    
+        # Reversing the data to maintain order for plot
         categories.reverse()
         steel_values = steel_values[::-1]
         concrete_values = concrete_values[::-1]
@@ -59,7 +59,7 @@ def create_plot(self , categories , steel_values, concrete_values ):
         axes.legend()
 
          # Limit the width of the plot by adjusting its position
-        axes.set_position([0.25, 0.1, 0.7, 0.85])  # [left, bottom, width, height]
+        axes.set_position([0.25, 0.1, 0.72, 0.85])  # [left, bottom, width, height]
 
          # Enable dynamic resizing
         self.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
@@ -72,7 +72,6 @@ def export_chart(self):
     
         try:    
             if layout is None or layout.count() == 0:
-                print("No data available")
                 raise ValueError
             else:
                 # Open a file dialog to select the save location
@@ -84,5 +83,5 @@ def export_chart(self):
                     print(f"Chart saved to {file_path}")
         
         except ValueError:
-            QMessageBox.warning(self, "Input Error", "Please check your Input.")
+            QMessageBox.warning(self, "Error", "No data available.")
             return
