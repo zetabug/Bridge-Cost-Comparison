@@ -18,17 +18,17 @@ def create_plot(self , categories , steel_values, concrete_values ):
         if layout is None or layout.count() == 0:
             # If no existing canvas, create it and add to layout
             figure = Figure(figsize=(5, 4), dpi=100)
-            canvas = FigureCanvas(figure)
+            self.canvas = FigureCanvas(figure)
             axes = figure.add_subplot(111)
 
             # Add the canvas to the frame2 layout
-            layout = QVBoxLayout()
-            layout.addWidget(canvas)
-            self.ui.frame_2.setLayout(layout)
+            newlayout = QVBoxLayout()
+            newlayout.addWidget(self.canvas)
+            self.ui.frame_2.setLayout(newlayout)
         else:
             # Access existing canvas and axes
-            canvas = layout.itemAt(0).widget()
-            axes = canvas.figure.get_axes()[0]
+            self.canvas = layout.itemAt(0).widget()
+            axes = self.canvas.figure.get_axes()[0]
 
         # Clear existing axes
         axes.clear()
@@ -64,7 +64,7 @@ def create_plot(self , categories , steel_values, concrete_values ):
          # Enable dynamic resizing
         self.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         self.updateGeometry()
-        canvas.draw()
+        self.canvas.draw()
 
 
 def export_chart(self):
