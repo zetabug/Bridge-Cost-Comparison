@@ -114,7 +114,5 @@ class MainWindow(QMainWindow):
     def openUpdateDialog(self):
         dialog = dialogs.UpdatePricesDialog() 
         dialog.exec()
-        self.displayAll()
-
 
    
