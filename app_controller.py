@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QAbstractItemView, QMessageBox
 from PyQt5 import QtCore
-from untitled import Ui_MainWindow
+from layout import Ui_MainWindow
 
 import dialogs
 import visualization
