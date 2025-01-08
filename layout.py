@@ -9,7 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QIntValidator
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtGui import QIntValidator, QFont
 
 
 
@@ -38,9 +39,13 @@ class Ui_MainWindow(object):
         self.frame_1_layout = QtWidgets.QVBoxLayout(self.frame_1)
         self.frame_1_layout.setObjectName("frame_1_layout")
         
+        self.inputHeading = QLabel("Input")
+        self.inputHeading.setFont(QFont("Calibri", 11, QFont.Bold))
+        self.inputHeading.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.frame_1_layout.addWidget(self.inputHeading)
         
         self.formLayoutWidget = QtWidgets.QWidget(self.frame_1)
-        # self.formLayoutWidget.setGeometry(QtCore.QRect(15, 30, 235, 361))
         self.formLayoutWidget.setStyleSheet("QLineEdit {font-size: 12px;}")
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
@@ -175,6 +180,12 @@ class Ui_MainWindow(object):
         self.tableWidget = QtWidgets.QTableWidget(self.frame_3)
         self.frame_3_layout = QtWidgets.QVBoxLayout(self.frame_3)
         self.frame_3_layout.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.outputHeading = QLabel("Output")
+        self.outputHeading.setFont(QFont("Calibri", 11, QFont.Bold))
+        self.outputHeading.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.frame_3_layout.addWidget(self.outputHeading)
         self.frame_3_layout.addWidget(self.tableWidget)
 
         self.tableWidget.setObjectName("tableWidget")
@@ -239,9 +250,16 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setStretch(1, 30)
         self.horizontalLayout.setStretch(2, 18)
         
-        self.frame_3_layout.setStretch(0,76)
-        self.frame_3_layout.setStretch(1,12)
-        self.frame_3_layout.setStretch(3,12)
+        self.frame_1_layout.setStretch(0,2)
+        self.frame_1_layout.setStretch(1,75)
+        self.frame_1_layout.setStretch(2,10)
+        self.frame_1_layout.setStretch(3,10)
+
+
+        self.frame_3_layout.setStretch(0,2)
+        self.frame_3_layout.setStretch(1,78)
+        self.frame_3_layout.setStretch(2,10)
+        self.frame_3_layout.setStretch(3,10)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
