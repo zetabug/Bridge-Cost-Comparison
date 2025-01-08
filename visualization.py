@@ -80,7 +80,7 @@ def export_chart(self):
                 if file_path:
                     # Save the chart using savefig
                     self.canvas.figure.savefig(file_path)
-                    print(f"Chart saved to {file_path}")
+                    print(f"Plot Chart saved to {file_path}")
         
         except ValueError:
             QMessageBox.warning(self, "Error", "No data available.")
