@@ -8,7 +8,7 @@ from PyQt5 import QtWidgets
 
 
 def create_plot(self , categories , steel_values, concrete_values ):
-    
+        # Reversing the data to maintain order for plot
         categories.reverse()
         steel_values = steel_values[::-1]
         concrete_values = concrete_values[::-1]
@@ -18,17 +18,17 @@ def create_plot(self , categories , steel_values, concrete_values ):
         if layout is None or layout.count() == 0:
             # If no existing canvas, create it and add to layout
             figure = Figure(figsize=(5, 4), dpi=100)
-            canvas = FigureCanvas(figure)
+            self.canvas = FigureCanvas(figure)
             axes = figure.add_subplot(111)
 
             # Add the canvas to the frame2 layout
-            layout = QVBoxLayout()
-            layout.addWidget(canvas)
-            self.ui.frame_2.setLayout(layout)
+            newlayout = QVBoxLayout()
+            newlayout.addWidget(self.canvas)
+            self.ui.frame_2.setLayout(newlayout)
         else:
             # Access existing canvas and axes
-            canvas = layout.itemAt(0).widget()
-            axes = canvas.figure.get_axes()[0]
+            self.canvas = layout.itemAt(0).widget()
+            axes = self.canvas.figure.get_axes()[0]
 
         # Clear existing axes
         axes.clear()
@@ -59,12 +59,12 @@ def create_plot(self , categories , steel_values, concrete_values ):
         axes.legend()
 
          # Limit the width of the plot by adjusting its position
-        axes.set_position([0.25, 0.1, 0.7, 0.85])  # [left, bottom, width, height]
+        axes.set_position([0.25, 0.1, 0.72, 0.85])  # [left, bottom, width, height]
 
          # Enable dynamic resizing
         self.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         self.updateGeometry()
-        canvas.draw()
+        self.canvas.draw()
 
 
 def export_chart(self):
@@ -72,7 +72,6 @@ def export_chart(self):
     
         try:    
             if layout is None or layout.count() == 0:
-                print("No data available")
                 raise ValueError
             else:
                 # Open a file dialog to select the save location
@@ -84,5 +83,5 @@ def export_chart(self):
                     print(f"Chart saved to {file_path}")
         
         except ValueError:
-            QMessageBox.warning(self, "Input Error", "Please check your Input.")
+            QMessageBox.warning(self, "Error", "No data available.")
             return
