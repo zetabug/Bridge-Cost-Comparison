@@ -132,6 +132,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.calcCosts_btn.setFont(font)
+        self.calcCosts_btn.setFixedSize(250, 50)  # Fixed size, no stretching
 
         self.calcCosts_btn.setStyleSheet("color:#fff;\n"
 "background-color:rgb(0, 0, 0)")
@@ -143,6 +144,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.updateDB_btn.setFont(font)
+        self.updateDB_btn.setFixedSize(250, 50)  # Fixed size, no stretching
+
         self.updateDB_btn.setStyleSheet("color:#fff;\n"
 "background-color:rgb(0, 0, 0)")
         self.updateDB_btn.setObjectName("updateDB_btn")
