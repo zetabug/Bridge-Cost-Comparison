@@ -44,6 +44,7 @@ def create_plot(self , categories , steel_values, concrete_values ):
         # Set the y-ticks to the center of the bars
         axes.set_yticks(index + bar_width / 2)
         axes.set_yticklabels(categories)
+        axes.set_xlabel("in Rupees(₹)")
 
         def format_large_numbers(x, pos):
             if x >= 1_000_000:
@@ -80,7 +81,7 @@ def export_chart(self):
                 if file_path:
                     # Save the chart using savefig
                     self.canvas.figure.savefig(file_path)
-                    print(f"Chart saved to {file_path}")
+                    print(f"Plot Chart saved to {file_path}")
         
         except ValueError:
             QMessageBox.warning(self, "Error", "No data available.")

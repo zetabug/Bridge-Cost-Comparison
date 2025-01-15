@@ -9,7 +9,8 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QIntValidator
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtGui import QIntValidator, QFont
 
 
 
@@ -22,8 +23,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
 
-
-        
         # frame 1 - input form
         self.frame_1 = QtWidgets.QFrame(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
@@ -40,9 +39,14 @@ class Ui_MainWindow(object):
         self.frame_1_layout = QtWidgets.QVBoxLayout(self.frame_1)
         self.frame_1_layout.setObjectName("frame_1_layout")
         
+        self.inputHeading = QLabel("Input")
+        self.inputHeading.setFont(QFont("Calibri", 11, QFont.Bold))
+        self.inputHeading.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.frame_1_layout.addWidget(self.inputHeading)
         
         self.formLayoutWidget = QtWidgets.QWidget(self.frame_1)
-        # self.formLayoutWidget.setGeometry(QtCore.QRect(15, 30, 235, 361))
+        self.formLayoutWidget.setStyleSheet("QLineEdit {font-size: 12px;}")
         self.formLayoutWidget.setObjectName("formLayoutWidget")
         self.formLayout = QtWidgets.QFormLayout(self.formLayoutWidget)
         self.formLayout.setLabelAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
@@ -50,6 +54,7 @@ class Ui_MainWindow(object):
         self.formLayout.setContentsMargins(0, 0, 0, 0)
         self.formLayout.setHorizontalSpacing(0)
         self.formLayout.setVerticalSpacing(45)
+
         self.formLayout.setObjectName("formLayout")
         self.span_label = QtWidgets.QLabel(self.formLayoutWidget)
         font = QtGui.QFont()
@@ -62,9 +67,10 @@ class Ui_MainWindow(object):
         self.span_label.setObjectName("span_label")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.span_label)
         self.span_input = QtWidgets.QLineEdit(self.formLayoutWidget)
-        self.span_input.setMinimumSize(QtCore.QSize(0, 0))
+        self.span_input.setMinimumSize(QtCore.QSize(0, 25))
         self.span_input.setBaseSize(QtCore.QSize(0, 0))
         self.span_input.setLayoutDirection(QtCore.Qt.LeftToRight)
+
         self.span_input.setObjectName("span_input")
         self.span_input.setValidator(QIntValidator(0,9999999))
     
@@ -83,7 +89,7 @@ class Ui_MainWindow(object):
         self.width_input = QtWidgets.QLineEdit(self.formLayoutWidget)
         self.width_input.setValidator(QIntValidator(0,9999999))
 
-        self.width_input.setMinimumSize(QtCore.QSize(0, 0))
+        self.width_input.setMinimumSize(QtCore.QSize(0, 25))
         self.width_input.setObjectName("width_input")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.width_input)
         self.traffic_label = QtWidgets.QLabel(self.formLayoutWidget)
@@ -102,7 +108,7 @@ class Ui_MainWindow(object):
         self.traffic_input = QtWidgets.QLineEdit(self.formLayoutWidget)
         self.traffic_input.setValidator(QIntValidator(0,9999999))
 
-        self.traffic_input.setMinimumSize(QtCore.QSize(0, 0))
+        self.traffic_input.setMinimumSize(QtCore.QSize(0, 25))
         self.traffic_input.setObjectName("traffic_input")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.traffic_input)
         self.life_label = QtWidgets.QLabel(self.formLayoutWidget)
@@ -118,7 +124,8 @@ class Ui_MainWindow(object):
         self.life_input = QtWidgets.QSpinBox(self.formLayoutWidget)
         self.life_input.setEnabled(True)
         self.life_input.setMaximum(500)
-        self.life_input.setMinimumSize(QtCore.QSize(0, 0))
+        self.life_input.setMinimumSize(QtCore.QSize(0, 25))
+        self.life_input.setStyleSheet("font-size: 12px;")
         self.life_input.setObjectName("life_input")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.life_input)
         
@@ -130,6 +137,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.calcCosts_btn.setFont(font)
+        self.calcCosts_btn.setFixedSize(250, 50)  # Fixed size, no stretching
 
         self.calcCosts_btn.setStyleSheet("color:#fff;\n"
 "background-color:rgb(0, 0, 0)")
@@ -141,6 +149,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.updateDB_btn.setFont(font)
+        self.updateDB_btn.setFixedSize(250, 50)  # Fixed size, no stretching
+
         self.updateDB_btn.setStyleSheet("color:#fff;\n"
 "background-color:rgb(0, 0, 0)")
         self.updateDB_btn.setObjectName("updateDB_btn")
@@ -170,7 +180,14 @@ class Ui_MainWindow(object):
         self.tableWidget = QtWidgets.QTableWidget(self.frame_3)
         self.frame_3_layout = QtWidgets.QVBoxLayout(self.frame_3)
         self.frame_3_layout.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.outputHeading = QLabel("Output")
+        self.outputHeading.setFont(QFont("Calibri", 11, QFont.Bold))
+        self.outputHeading.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.frame_3_layout.addWidget(self.outputHeading)
         self.frame_3_layout.addWidget(self.tableWidget)
+
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(3)
         self.tableWidget.setRowCount(0)
@@ -199,9 +216,19 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(2, item)
         self.tableWidget.verticalHeader().setCascadingSectionResizes(False)
 
-        #adding space
-        self.frame_3_layout.addSpacing(20)
 
+        # Add Export Table button
+        self.exportTable_btn = QtWidgets.QPushButton(self.frame_3)
+        self.exportTable_btn.setFixedSize(250, 50)  # Fixed size, no stretching
+        font = QtGui.QFont()
+        font.setFamily("Calibri")
+        font.setPointSize(14)
+        self.exportTable_btn.setFont(font)
+        self.exportTable_btn.setStyleSheet("""background-color:rgb(0, 0, 255);
+        color:#fff;""")
+        self.exportTable_btn.setObjectName("exportTable_btn")
+
+        self.frame_3_layout.addWidget(self.exportTable_btn, alignment=QtCore.Qt.AlignCenter)
 
         # Add Export Plot button
         self.exportPlot_btn = QtWidgets.QPushButton(self.frame_3)
@@ -215,12 +242,25 @@ class Ui_MainWindow(object):
         self.exportPlot_btn.setObjectName("exportPlot_btn")
 
         self.frame_3_layout.addWidget(self.exportPlot_btn, alignment=QtCore.Qt.AlignCenter)
+        
 
 
         self.horizontalLayout.addWidget(self.frame_3)
         self.horizontalLayout.setStretch(0, 12)
         self.horizontalLayout.setStretch(1, 30)
         self.horizontalLayout.setStretch(2, 18)
+        
+        self.frame_1_layout.setStretch(0,2)
+        self.frame_1_layout.setStretch(1,75)
+        self.frame_1_layout.setStretch(2,10)
+        self.frame_1_layout.setStretch(3,10)
+
+
+        self.frame_3_layout.setStretch(0,2)
+        self.frame_3_layout.setStretch(1,78)
+        self.frame_3_layout.setStretch(2,10)
+        self.frame_3_layout.setStretch(3,10)
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -244,6 +284,7 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Concrete Bridge (₹)"))
         self.exportPlot_btn.setText(_translate("MainWindow", "Export Plot"))
+        self.exportTable_btn.setText(_translate("MainWindow", "Export Table"))
 
 
 

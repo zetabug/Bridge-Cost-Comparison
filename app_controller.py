@@ -1,6 +1,7 @@
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QAbstractItemView, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QAbstractItemView, QMessageBox, QFileDialog
 from layout import Ui_MainWindow
 
+import csv
 import dialogs
 import visualization
 
@@ -18,9 +19,11 @@ class MainWindow(QMainWindow):
         self.ui.calcCosts_btn.clicked.connect(self.displayAll)
         self.ui.updateDB_btn.clicked.connect(self.openUpdateDialog)
         self.ui.exportPlot_btn.clicked.connect(lambda :  visualization.export_chart(self)) 
+        self.ui.exportTable_btn.clicked.connect(self.export_to_CSV) 
+
 
     def calcCosts(self):
-            # Validate user inputs
+        # Validate user inputs
         try:
             span_length = float(self.ui.span_input.text().strip())
             width = float(self.ui.width_input.text().strip())
@@ -40,7 +43,6 @@ class MainWindow(QMainWindow):
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM costTable")
         DBcosts = cursor.fetchall()
-        # print(DBcosts)
 
         # defining user inputs
         span_length = float(self.ui.span_input.text())
@@ -94,7 +96,6 @@ class MainWindow(QMainWindow):
         #======================================================
         # Display table
         #======================================================
-        # Hide row headers (the numbering)
         self.ui.tableWidget.verticalHeader().setVisible(False)
 
         # populate table
@@ -114,5 +115,41 @@ class MainWindow(QMainWindow):
     def openUpdateDialog(self):
         dialog = dialogs.UpdatePricesDialog() 
         dialog.exec()
+    
+    def export_to_CSV(self):
+        try : 
+            # checking if the table is empty or not
+            if self.ui.tableWidget.rowCount()==0 or self.ui.tableWidget.columnCount()==0:
+                raise ValueError
+            
+            else:
+                # Open a file dialog to choose a save location
+                options = QFileDialog.Options()
+                file_path, _ = QFileDialog.getSaveFileName(self, "Save File", "", "CSV Files (*.csv);;All Files (*)", options=options)
+                
+                if file_path:
+                    with open(file_path, mode='w', newline='', encoding='utf-8-sig') as file:
+                        writer = csv.writer(file)
+                        
+                        # Write headers
+                        headers = [self.ui.tableWidget.horizontalHeaderItem(col).text() for col in range(self.ui.tableWidget.columnCount())]
+                        writer.writerow(headers)
+                        
+                        # Write table data
+                        for row in range(self.ui.tableWidget.rowCount()):
+                            row_data = []
+                            for col in range(self.ui.tableWidget.columnCount()):
+                                item = self.ui.tableWidget.item(row, col)
+                                row_data.append(item.text() if item else "")  # Handle empty cells
+                            writer.writerow(row_data)
+
+                    print(f"Table exported successfully to {file_path}")
+            
+        except ValueError:
+            QMessageBox.warning(self, "Error", "No data available.")
+            return
+            
+                
+        
 
    
